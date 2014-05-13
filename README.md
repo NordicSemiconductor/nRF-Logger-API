@@ -1,8 +1,6 @@
 nRF-Logger-API
 ==============
 
-![Icon](https://github.com/NordicSemiconductor/nRF-Logger-API/blob/master/art/icon.png)
-
 The library allows to easily create custom log entries from your application in the nRF Logger. It is being used by nRF Master Control Panel and nRF Toolbox, that are available on Google Play.
 The logger may be used for debugging purposes, as LogCat is not always available.
 
