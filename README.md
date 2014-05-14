@@ -30,19 +30,19 @@ If nRF Logger application is not installed on the device those methods does noth
 
 1. When you create your first log session from your application its name will be added to nRF Logger drop-down menu.
 
-    mLogSession = Logger.newSession(getActivity(), key, name);
+```mLogSession = Logger.newSession(getActivity(), key, name);```
 	
 2. You may create multiple folders for different components of your application by creating a session with a profile name. It will be concatenated with the application name and visible as different entry in the drop-down menu.
 
-    mLogSession = Logger.newSession(getActivity(), "Profile Name", key, name);
+```mLogSession = Logger.newSession(getActivity(), "Profile Name", key, name);```
 	
 3. The "name" parameter is shown as a title. If name is null, "No name" will be shown.
 4. The "key" parameter is used to group log sessions from the same day together. The "key" parameter may not be null.
 5. Log sessions from the same day with the same "key" value are grouped as shown on the picture.
 6. nRF Logger API allows you also to add a comment to a log session.
 
-    Logger.setSessionDescription(mLogSession, "This is a comment");
+```Logger.setSessionDescription(mLogSession, "This is a comment");```
 
 7. You may also mark a session with one of 6 symbols.
 
-    Logger.setSessionMark(mLogSession, Logger.MARK_FLAG_RED);
+```Logger.setSessionMark(mLogSession, Logger.MARK_FLAG_RED);```
