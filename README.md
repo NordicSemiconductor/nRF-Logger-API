@@ -44,7 +44,7 @@ If nRF Logger application is not installed on the device those methods does noth
 
 (6) nRF Logger API allows you also to add a comment to a log session.
 
-    ogger.setSessionDescription(mLogSession, "This is a comment");
+    Logger.setSessionDescription(mLogSession, "This is a comment");
 
 (7) You may also mark a session with one of 6 symbols.
 
