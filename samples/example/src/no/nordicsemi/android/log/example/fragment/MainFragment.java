@@ -8,7 +8,7 @@ import no.nordicsemi.android.log.LogSession;
 import no.nordicsemi.android.log.Logger;
 import no.nordicsemi.android.log.example.LogAdapter;
 import no.nordicsemi.android.log.example.R;
-import no.nordicsemi.android.log.example.localprovider.LocalLogContract;
+import no.nordicsemi.android.log.example.localprovider.MyLogContentProvider;
 import android.app.DialogFragment;
 import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -209,7 +209,7 @@ public class MainFragment extends ListFragment implements LoaderCallbacks<Cursor
 		// The session is null if nRF Logger is not installed
 		if (mLogSession == null) {
 			Toast.makeText(getActivity(), R.string.error_no_nrf_logger, Toast.LENGTH_SHORT).show();
-			mLogSession = LocalLogSession.newSession(getActivity(), LocalLogContract.AUTHORITY_URI, key, name);
+			mLogSession = LocalLogSession.newSession(getActivity(), MyLogContentProvider.AUTHORITY_URI, key, name);
 
 			// The button will be used to download the nRF Logger
 			mShowAllSessionsInLoggerButton.setText(R.string.action_download);
