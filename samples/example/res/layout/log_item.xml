@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2013 Nordic Semiconductor. All Rights Reserved.
+  
+  The information contained herein is property of Nordic Semiconductor ASA.
+  Terms and conditions of usage are described in detail in NORDIC SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT.
+  Licensees are granted free, non-transferable use of the information. NO WARRANTY of ANY KIND is provided. 
+  This heading must NOT be removed from the file.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:textColor="#555555" />
+
+    <TextView
+        android:id="@+id/data"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+</LinearLayout>
