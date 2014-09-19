@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
 
 		// Show information if nRF Logger is not installed
 		if (!logProviderExists()) {
-			Toast.makeText(this, R.string.error_no_lgger, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.error_no_nrf_logger, Toast.LENGTH_SHORT).show();
 		}
 
 		// Show the main fragment

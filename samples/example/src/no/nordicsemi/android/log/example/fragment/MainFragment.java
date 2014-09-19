@@ -1,24 +1,37 @@
 package no.nordicsemi.android.log.example.fragment;
 
+import no.nordicsemi.android.log.ILogSession;
+import no.nordicsemi.android.log.LocalLogSession;
+import no.nordicsemi.android.log.LogContract;
 import no.nordicsemi.android.log.LogContract.Log.Level;
 import no.nordicsemi.android.log.LogSession;
 import no.nordicsemi.android.log.Logger;
+import no.nordicsemi.android.log.example.LogAdapter;
 import no.nordicsemi.android.log.example.R;
+import no.nordicsemi.android.log.example.localprovider.LocalLogContract;
 import android.app.DialogFragment;
-import android.app.Fragment;
+import android.app.ListFragment;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 	private static final String SIS_SESSION_URL = "session_url";
+
+	private static final int LOG_REQUEST_ID = 1;
+	private static final String[] LOG_PROJECTION = { LogContract.Log._ID, LogContract.Log.TIME, LogContract.Log.LEVEL, LogContract.Log.DATA };
 
 	private EditText mField;
 	private Spinner mLogLevelSpinner;
@@ -27,7 +40,9 @@ public class MainFragment extends Fragment {
 	private Button mShowAllSessionsInLoggerButton;
 
 	/** The log session used to add entries. Log session is recreated after rotation change. */
-	private LogSession mLogSession;
+	private ILogSession mLogSession;
+	/** The adapter used to populate the list with log entries. */
+	private CursorAdapter mLogAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -93,9 +108,12 @@ public class MainFragment extends Fragment {
 					level = Level.VERBOSE;
 					break;
 				case 3:
-					level = Level.WARNING;
+					level = Level.APPLICATION;
 					break;
 				case 4:
+					level = Level.WARNING;
+					break;
+				case 5:
 					level = Level.ERROR;
 					break;
 				default:
@@ -130,13 +148,49 @@ public class MainFragment extends Fragment {
 		openSessionsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Open the sessions in any app that supports nRF Logger log provider, f.e. in nRF Logger 
-				Intent intent = new Intent(Intent.ACTION_VIEW, mLogSession.getSessionsUri());
-				startActivity(intent);
+				if (mLogSession instanceof LogSession) {
+					// Open the sessions in any app that supports nRF Logger log provider, f.e. in nRF Logger 
+					Intent intent = new Intent(Intent.ACTION_VIEW, ((LogSession) mLogSession).getSessionsUri());
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+				} else {
+					// nRF Logger is not installed, open the Google Play
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=no.nordicsemi.android.log"));
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+				}
 			}
 		});
 
 		return rootView;
+	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		// Create the log adapter, initially with null cursor
+		mLogAdapter = new LogAdapter(getActivity());
+		setListAdapter(mLogAdapter);
+
+		// The mLogSession is not null when it was created before and the orientation changed afterwards
+		if (mLogSession != null) {
+			getLoaderManager().restartLoader(LOG_REQUEST_ID, null, this);
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		try {
+			// Let's delete the local log session when exit
+			if (mLogSession != null) {
+				LocalLogSession session = (LocalLogSession) mLogSession;
+				session.delete();
+			}
+		} catch (ClassCastException e) {
+			// do nothing, nRF Logger is installed
+		}
+		super.onDestroy();
 	}
 
 	/**
@@ -144,23 +198,45 @@ public class MainFragment extends Fragment {
 	 */
 	public void createLogSession(String key, String name) {
 		mLogSession = Logger.newSession(getActivity(), key, name);
-		// The session is null if nRF Logger is not installed
-		if (mLogSession == null) {
-			Toast.makeText(getActivity(), R.string.error_no_lgger, Toast.LENGTH_SHORT).show();
 
-			// The button will be used to download the nRF Logger
-			mShowSessionInLoggerButton.setText(R.string.action_download);
-			mShowSessionInLoggerButton.setEnabled(true);
-			return;
-		}
-
-		// The nRF Logger app exists
+		// Enable buttons
 		mField.setEnabled(true);
 		mLogLevelSpinner.setEnabled(true);
 		mAddButton.setEnabled(true);
-		mShowSessionInLoggerButton.setText(R.string.action_open);
 		mShowSessionInLoggerButton.setEnabled(true);
 		mShowAllSessionsInLoggerButton.setEnabled(true);
+
+		// The session is null if nRF Logger is not installed
+		if (mLogSession == null) {
+			Toast.makeText(getActivity(), R.string.error_no_nrf_logger, Toast.LENGTH_SHORT).show();
+			mLogSession = LocalLogSession.newSession(getActivity(), LocalLogContract.AUTHORITY_URI, key, name);
+
+			// The button will be used to download the nRF Logger
+			mShowAllSessionsInLoggerButton.setText(R.string.action_download);
+			mShowSessionInLoggerButton.setEnabled(false);
+		}
+
+		getLoaderManager().restartLoader(LOG_REQUEST_ID, null, this);
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		switch (id) {
+		case LOG_REQUEST_ID: {
+			return new CursorLoader(getActivity(), mLogSession.getSessionEntriesUri(), LOG_PROJECTION, null, null, LogContract.Log.TIME);
+		}
+		}
+		return null;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		mLogAdapter.swapCursor(data);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		mLogAdapter.swapCursor(null);
 	}
 
 	/**
