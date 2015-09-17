@@ -1,10 +1,17 @@
 nRF-Logger-API
 ==============
 
+[ ![Download](https://api.bintray.com/packages/nordic/android/no.nordicsemi.android%3Alogger/images/download.svg) ](https://bintray.com/nordic/android/no.nordicsemi.android%3Alogger/_latestVersion)
+
 The library allows to easily create custom log entries from your application in the nRF Logger. It is being used by nRF Master Control Panel and nRF Toolbox, that are available on Google Play.
 The logger may be used for debugging purposes, as LogCat is not always available.
 
 nRF Logger is available for Android 4.1.* and newer.
+
+### Usage
+The nRF Logger API library is available as *jar* or from jcenter and Maven Central repositories. For Android Studio, add the following dependency to your component's *gradle.build* file:
+
+```compile 'no.nordicsemi.android:log:2.0.0'```
 
 ###Features
 1. Create log session from your application
