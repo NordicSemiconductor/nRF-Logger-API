@@ -254,9 +254,13 @@ public abstract class LocalLogContentProvider extends ContentProvider {
 		final LogTransaction transaction = startTransaction(true);
 		int numValues = values.length;
 		int opCount = 0;
+		boolean dirty = false;
 		try {
-			for (int i = 0; i < numValues; i++) {
-				insertInTransaction(uri, values[i]);
+			for (ContentValues value : values) {
+				if (value == null)
+					continue;
+				if (insertInTransaction(uri, value) != null)
+					dirty = true;
 				if (++opCount >= BULK_INSERTS_PER_YIELD_POINT) {
 					opCount = 0;
 					try {
@@ -266,6 +270,9 @@ public abstract class LocalLogContentProvider extends ContentProvider {
 						throw re;
 					}
 				}
+			}
+			if (dirty) {
+				transaction.markDirty();
 			}
 			transaction.markSuccessful(true);
 		} finally {
