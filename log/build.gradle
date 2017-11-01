@@ -26,9 +26,9 @@ ext {
     libraryName = 'nRF Logger API'
     libraryDescription = 'nRF Logger API Library'
 
-    issuesUrl = 'https://github.com/NordicSemiconductor/nRF-Logger-API/issues'
-    siteUrl = 'https://github.com/NordicSemiconductor/nRF-Logger-API'
-    gitUrl = 'https://github.com/NordicSemiconductor/nRF-Logger-API.git'
+    issuesUrl = 'https://github.com/NordicPlayground/nRF-Logger-API/issues'
+    siteUrl = 'https://github.com/NordicPlayground/nRF-Logger-API'
+    gitUrl = 'https://github.com/NordicPlayground/nRF-Logger-API.git'
 
     developerId = 'philips77'
     developerName = 'Aleksander Nowakowski'
