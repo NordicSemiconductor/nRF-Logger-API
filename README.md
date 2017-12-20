@@ -2,7 +2,7 @@
 
 [ ![Download](https://api.bintray.com/packages/nordic/android/nrf-logger-api/images/download.svg) ](https://bintray.com/nordic/android/nrf-logger-api/_latestVersion)
 
-The library allows to easily create custom log entries from your application in the nRF Logger. It is being used by nRF Master Control Panel and nRF Toolbox, that are available on Google Play.
+The library allows to easily create custom log entries from your application in the nRF Logger. It is being used by nRF Connect and nRF Toolbox, that are available on Google Play.
 The logger may be used for debugging purposes, as LogCat is not always available.
 
 nRF Logger is available for Android 4.1.* and newer.
@@ -39,7 +39,7 @@ If nRF Logger application is not installed on the device those methods does noth
 
 ### Basic information
 
-![Logger Image](.assets/logger.png)
+![Logger Image](.assets/logger2.png) ![Logger Image](.assets/logger1.png)
 
 (1) When you create your first log session from your application its name will be added to nRF Logger drop-down menu.
 
