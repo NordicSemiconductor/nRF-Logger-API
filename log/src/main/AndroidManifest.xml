@@ -7,6 +7,4 @@
         android:minSdkVersion="16"
         android:targetSdkVersion="21" />
 
-    <application android:label="@string/app_name" />
-
 </manifest>
