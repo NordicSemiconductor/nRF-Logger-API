@@ -14,7 +14,7 @@ The nRF Logger API library is available as *jar* or from jcenter and Maven Centr
 compile 'no.nordicsemi.android:log:2.1.1'
 ```
 
-If you use proguard, add the following line to your proguard rules:
+If you use proguard, the following line will be automatically added to your proguard rules:
 ```-keep class no.nordicsemi.android.log.** { *; }```
 
 ### Features
