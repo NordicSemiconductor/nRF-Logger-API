@@ -1,10 +1,3 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="no.nordicsemi.android.log"
-    android:versionCode="4"
-    android:versionName="2.0" >
-
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
+<manifest package="no.nordicsemi.android.log">
 
 </manifest>
