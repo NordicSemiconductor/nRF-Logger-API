@@ -1,11 +1,32 @@
-/*******************************************************************************
- * Copyright (c) 2013 Nordic Semiconductor. All Rights Reserved.
- * 
- * The information contained herein is property of Nordic Semiconductor ASA.
- * Terms and conditions of usage are described in detail in NORDIC SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT.
- * Licensees are granted free, non-transferable use of the information. NO WARRANTY of ANY KIND is provided. 
- * This heading must NOT be removed from the file.
- ******************************************************************************/
+/*
+ * Copyright (c) 2018, Nordic Semiconductor
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package no.nordicsemi.android.log.localprovider;
 
 import java.util.ArrayList;
@@ -17,6 +38,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+@SuppressWarnings("unused")
 /* package */class LocalLogDatabaseHelper extends SQLiteOpenHelper {
 
 	/**
@@ -31,45 +53,45 @@ import android.provider.BaseColumns;
 
 	public interface Tables {
 		/** Log sessions table. See {@link LogContract.Session} for column names */
-		public static final String LOG_SESSIONS = "sessions";
+		String LOG_SESSIONS = "sessions";
 		/** Log entries table. See {@link LogContract.Log} for column names */
-		public static final String LOG = "log";
+		String LOG = "log";
 	}
 
 	public interface Projections {
-		public static final String[] ID = { BaseColumns._ID };
-		public static final String[] MAX_NUMBER = { "MAX(" + LogContract.Session.NUMBER + ")" };
+		String[] ID = { BaseColumns._ID };
+		String[] MAX_NUMBER = { "MAX(" + LogContract.Session.NUMBER + ")" };
 	}
 
 	public interface SessionColumns {
-		public static final String CONCRETE_ID = Tables.LOG_SESSIONS + "." + BaseColumns._ID;
-		public static final String CONCRETE_KEY = Tables.LOG_SESSIONS + "." + LogContract.Session.KEY;
-		public static final String CONCRETE_NAME = Tables.LOG_SESSIONS + "." + LogContract.Session.NAME;
-		public static final String CONCRETE_APPLICATION_ID = Tables.LOG_SESSIONS + "." + LogContract.Session.APPLICATION_ID;
-		public static final String CONCRETE_CREATED_AT = Tables.LOG_SESSIONS + "." + LogContract.Session.CREATED_AT;
-		public static final String CONCRETE_NUMBER = Tables.LOG_SESSIONS + "." + LogContract.Session.NUMBER;
-		public static final String CONCRETE_DESCRIPTION = Tables.LOG_SESSIONS + "." + LogContract.Session.DESCRIPTION;
-		public static final String CONCRETE_MARK = Tables.LOG_SESSIONS + "." + LogContract.Session.MARK;
+		String CONCRETE_ID = Tables.LOG_SESSIONS + "." + BaseColumns._ID;
+		String CONCRETE_KEY = Tables.LOG_SESSIONS + "." + LogContract.Session.KEY;
+		String CONCRETE_NAME = Tables.LOG_SESSIONS + "." + LogContract.Session.NAME;
+		String CONCRETE_APPLICATION_ID = Tables.LOG_SESSIONS + "." + LogContract.Session.APPLICATION_ID;
+		String CONCRETE_CREATED_AT = Tables.LOG_SESSIONS + "." + LogContract.Session.CREATED_AT;
+		String CONCRETE_NUMBER = Tables.LOG_SESSIONS + "." + LogContract.Session.NUMBER;
+		String CONCRETE_DESCRIPTION = Tables.LOG_SESSIONS + "." + LogContract.Session.DESCRIPTION;
+		String CONCRETE_MARK = Tables.LOG_SESSIONS + "." + LogContract.Session.MARK;
 	}
 
 	public interface LogColumns {
-		public static final String CONCRETE_ID = Tables.LOG + "." + BaseColumns._ID;
-		public static final String CONCRETE_SESSION_ID = Tables.LOG + "." + LogContract.Log.SESSION_ID;
-		public static final String CONCRETE_TIME = Tables.LOG + "." + LogContract.Log.TIME;
-		public static final String CONCRETE_LEVEL = Tables.LOG + "." + LogContract.Log.LEVEL;
-		public static final String CONCRETE_DATA = Tables.LOG + "." + LogContract.Log.DATA;
+		String CONCRETE_ID = Tables.LOG + "." + BaseColumns._ID;
+		String CONCRETE_SESSION_ID = Tables.LOG + "." + LogContract.Log.SESSION_ID;
+		String CONCRETE_TIME = Tables.LOG + "." + LogContract.Log.TIME;
+		String CONCRETE_LEVEL = Tables.LOG + "." + LogContract.Log.LEVEL;
+		String CONCRETE_DATA = Tables.LOG + "." + LogContract.Log.DATA;
 	}
 
 	private static LocalLogDatabaseHelper sInstance = null;
 
-	public static synchronized LocalLogDatabaseHelper getInstance(Context context) {
+	static synchronized LocalLogDatabaseHelper getInstance(Context context) {
 		if (sInstance == null) {
 			sInstance = new LocalLogDatabaseHelper(context, DATABASE_NAME, DATABASE_VERSION);
 		}
 		return sInstance;
 	}
 
-	protected LocalLogDatabaseHelper(Context context, String databaseName, int version) {
+	private LocalLogDatabaseHelper(Context context, String databaseName, int version) {
 		super(context, databaseName, null, version);
 	}
 
@@ -84,8 +106,13 @@ import android.provider.BaseColumns;
 	 * -------------------------------------------------------------------------------
 	 * </pre>
 	 */
-	private static final String CREATE_LOG_SESSIONS = "CREATE TABLE " + Tables.LOG_SESSIONS + "(" + LogContract.Session._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + LogContract.Session.KEY
-			+ " TEXT NOT NULL, " + LogContract.Session.NAME + " TEXT, " + LogContract.Session.CREATED_AT + " INTEGER NOT NULL);";
+	private static final String CREATE_LOG_SESSIONS = "CREATE TABLE " + Tables.LOG_SESSIONS +
+			"(" +
+				LogContract.Session._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				LogContract.Session.KEY + " TEXT NOT NULL, " +
+				LogContract.Session.NAME + " TEXT, " +
+				LogContract.Session.CREATED_AT + " INTEGER NOT NULL" +
+			");";
 
 	/**
 	 * The SQL code that creates the log table:
@@ -98,13 +125,19 @@ import android.provider.BaseColumns;
 	 * -------------------------------------------------------------------------------------------------
 	 * </pre>
 	 */
-	private static final String CREATE_LOG = "CREATE TABLE " + Tables.LOG + "(" + LogContract.Log._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + LogContract.Log.SESSION_ID + " INTEGER NOT NULL, "
-			+ LogContract.Log.TIME + " INTEGER NOT NULL, " + LogContract.Log.LEVEL + " INTEGER NOT NULL, " + LogContract.Log.DATA + " TEXT NOT NULL, FOREIGN KEY(" + LogContract.Log.SESSION_ID
-			+ ") REFERENCES " + Tables.LOG_SESSIONS + "(" + LogContract.Session._ID + "));";
+	private static final String CREATE_LOG = "CREATE TABLE " + Tables.LOG +
+			"(" +
+				LogContract.Log._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				LogContract.Log.SESSION_ID + " INTEGER NOT NULL, " +
+				LogContract.Log.TIME + " INTEGER NOT NULL, " +
+				LogContract.Log.LEVEL + " INTEGER NOT NULL, " +
+				LogContract.Log.DATA + " TEXT NOT NULL, FOREIGN KEY(" +
+				LogContract.Log.SESSION_ID +
+			") REFERENCES " + Tables.LOG_SESSIONS + "(" + LogContract.Session._ID + "));";
 
 	@Override
 	public void onCreate(final SQLiteDatabase db) {
-		final List<String> ddls = new ArrayList<String>();
+		final List<String> ddls = new ArrayList<>();
 		ddls.add(CREATE_LOG_SESSIONS);
 		ddls.add(CREATE_LOG);
 
@@ -116,7 +149,7 @@ import android.provider.BaseColumns;
 		initializeAutoIncrementSequences(db);
 	}
 
-	protected void initializeAutoIncrementSequences(final SQLiteDatabase db) {
+	private void initializeAutoIncrementSequences(final SQLiteDatabase db) {
 		// Default implementation does nothing.
 	}
 
