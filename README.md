@@ -11,7 +11,7 @@ nRF Logger is available for Android 4.1.* and newer.
 The nRF Logger API library is available as *jar* or from jcenter and Maven Central repositories. For Android Studio, add the following dependency to your component's *gradle.build* file:
 
 ```Groovy
-compile 'no.nordicsemi.android:log:2.1.1'
+compile 'no.nordicsemi.android:log:2.1.2'
 ```
 
 If you use proguard, the following line will be automatically added to your proguard rules:

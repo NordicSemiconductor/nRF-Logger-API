@@ -15,7 +15,7 @@ apply plugin: 'com.jfrog.bintray'
 ext {
     PUBLISH_GROUP_ID = 'no.nordicsemi.android'
     PUBLISH_ARTIFACT_ID = 'log'
-    PUBLISH_VERSION = '2.1.1'
+    PUBLISH_VERSION = '2.1.2'
 
     bintrayRepo = 'android'
     bintrayName = 'nrf-logger-api'
@@ -46,8 +46,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 4
-        versionName "2.1.1"
+        versionCode 5
+        versionName "2.1.2"
     }
     buildTypes {
         release {
