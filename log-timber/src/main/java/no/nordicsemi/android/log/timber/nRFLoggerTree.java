@@ -60,7 +60,7 @@ public class nRFLoggerTree extends Timber.Tree {
 		this.session = Logger.newSession(context, profile, key, name);
 	}
 
-	public nRFLoggerTree(final @Nullable LogSession session) {
+	public nRFLoggerTree(final @Nullable ILogSession session) {
 		this.session = session;
 	}
 
