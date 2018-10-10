@@ -1,4 +1,4 @@
-# nRF-Logger-API
+# nRF Logger Library
 
 [ ![Download](https://api.bintray.com/packages/nordic/android/nrf-logger-api/images/download.svg) ](https://bintray.com/nordic/android/nrf-logger-api/_latestVersion)
 
@@ -11,10 +11,17 @@ nRF Logger is available for Android 4.1.* and newer.
 The nRF Logger API library is available as *jar* or from jcenter and Maven Central repositories. For Android Studio, add the following dependency to your component's *gradle.build* file:
 
 ```Groovy
-compile 'no.nordicsemi.android:log:2.1.2'
+implementation 'no.nordicsemi.android:log:2.1.3'
+```
+
+For easy integration with [Timber (4.7.1)](https://github.com/JakeWharton/timber), use this instead:
+
+```Groovy
+implementation 'no.nordicsemi.android:log-timber:2.1.3'
 ```
 
 If you use proguard, the following line will be automatically added to your proguard rules:
+
 ```-keep class no.nordicsemi.android.log.** { *; }```
 
 ### Features
@@ -24,6 +31,17 @@ If you use proguard, the following line will be automatically added to your prog
 4. Open the log in nRF Logger for viewing
  
 APPLICATION level added in version 2.0 of the library.
+
+### Timber integration
+After importing log-timber dependency, plant the [nRFLoggerTree](https://github.com/NordicSemiconductor/nRF-Logger-API/blob/master/log-timber/src/main/java/no/nordicsemi/android/log/timber/nRFLoggerTree.java), as described on [Timber](https://github.com/JakeWharton/timber) website.
+
+#### Important
+1. The log-timber library uses *android.support.annotation:28.0.0* `@NonNull` and `@Nullable`, instead of ones from *org.jetbrains.annotations*, like Timber does.
+2. Log levels that Timber uses are incompatible with those in nRF Logger. In Timber, the APPLICATION level is missing, and DEBUG has higher priority then VERBOSE.
+3. Using Timber's (e.g. `Timber.i(...)`) API it is not possible to log on APPLICATION level.
+4. Logs logged with `Log.VERBOSE` priority will get VERBOSE log level, so will be upgraded.
+5. Logs logged with `Log.DEBUG` priority will get DEBUG level, so will be downgraded.
+6. Tags will be added before the message: `[TAG] message`.
 
 ### Example
 The example project may be found in samples folder. It contains a simple application that shows how to create a log session:
