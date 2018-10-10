@@ -38,7 +38,6 @@ import android.util.Log;
 
 import no.nordicsemi.android.log.ILogSession;
 import no.nordicsemi.android.log.LogContract;
-import no.nordicsemi.android.log.LogSession;
 import no.nordicsemi.android.log.Logger;
 import timber.log.Timber;
 
