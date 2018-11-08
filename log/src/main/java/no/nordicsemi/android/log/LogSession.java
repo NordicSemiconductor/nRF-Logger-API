@@ -82,7 +82,7 @@ public class LogSession implements ILogSession {
 	 * startActivity(intent);
 	 * </pre>
 	 * 
-	 * @return the Uri for all sessions created by the app used to create this session or
+	 * @return The Uri for all sessions created by the app used to create this session or
 	 * <code>null</code> if the session Uri is invalid or the owner app data does not exist in the
 	 * database.
 	 */

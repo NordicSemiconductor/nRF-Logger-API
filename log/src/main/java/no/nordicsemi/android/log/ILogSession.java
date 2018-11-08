@@ -42,7 +42,7 @@ public interface ILogSession {
 	/**
 	 * Returns the application context.
 	 *
-	 * @return the context
+	 * @return The context.
 	 */
 	@NonNull
 	Context getContext();
@@ -58,7 +58,7 @@ public interface ILogSession {
 	 * startActivity(intent);
 	 * </pre>
 	 *
-	 * @return the session Uri
+	 * @return The session Uri.
 	 */
 	@NonNull
 	Uri getSessionUri();
@@ -66,7 +66,7 @@ public interface ILogSession {
 	/**
 	 * Returns the session entries {@link Uri}. New log entries may be inserted using this Uri.
 	 *
-	 * @return the session entries Uri
+	 * @return The session entries Uri.
 	 */
 	@NonNull
 	Uri getSessionEntriesUri();

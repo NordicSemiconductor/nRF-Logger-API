@@ -284,7 +284,8 @@ public class Logger {
 			values.clear();
 			values.put(LogContract.Session.MARK, mark);
 			try {
-				session.getContext().getContentResolver().update(session.getSessionUri(), values, null, null);
+				session.getContext().getContentResolver()
+						.update(session.getSessionUri(), values, null, null);
 			} catch (final Exception e) {
 				// the nRF Logger application is not installed, do nothing
 			}
@@ -374,6 +375,7 @@ public class Logger {
 	 * @param session the session created using {@link #newSession(Context, String, String)}
 	 * @param level   the log level, one of {@link LogContract.Log.Level#DEBUG},
 	 *                {@link LogContract.Log.Level#VERBOSE}, {@link LogContract.Log.Level#INFO},
+	 *                {@link LogContract.Log.Level#APPLICATION},
 	 *                {@link LogContract.Log.Level#WARNING}, {@link LogContract.Log.Level#ERROR}.
 	 * @param message the message to be logged.
 	 */
@@ -400,6 +402,7 @@ public class Logger {
 	 * @param session the session created using {@link #newSession(Context, String, String)}
 	 * @param level   the log level, one of {@link LogContract.Log.Level#DEBUG},
 	 *                {@link LogContract.Log.Level#VERBOSE}, {@link LogContract.Log.Level#INFO},
+	 *                {@link LogContract.Log.Level#APPLICATION},
 	 *                {@link LogContract.Log.Level#WARNING}, {@link LogContract.Log.Level#ERROR}.
 	 * @param message the message to be logged.
 	 */
@@ -500,6 +503,7 @@ public class Logger {
 	 * @param session      the session created using {@link #newSession(Context, String, String)}
 	 * @param level        the log level, one of {@link LogContract.Log.Level#DEBUG},
 	 *                     {@link LogContract.Log.Level#VERBOSE}, {@link LogContract.Log.Level#INFO},
+	 *                     {@link LogContract.Log.Level#APPLICATION},
 	 *                     {@link LogContract.Log.Level#WARNING}, {@link LogContract.Log.Level#ERROR}.
 	 * @param messageResId the log message resource id.
 	 * @param params       additional (optional) parameters used to fill the message.
@@ -526,6 +530,7 @@ public class Logger {
 	 * @param session      the session created using {@link #newSession(Context, String, String)}
 	 * @param level        the log level, one of {@link LogContract.Log.Level#DEBUG},
 	 *                     {@link LogContract.Log.Level#VERBOSE}, {@link LogContract.Log.Level#INFO},
+	 *                     {@link LogContract.Log.Level#APPLICATION},
 	 *                     {@link LogContract.Log.Level#WARNING}, {@link LogContract.Log.Level#ERROR}.
 	 * @param messageResId the log message resource id.
 	 * @param params       additional (optional) parameters used to fill the message.
