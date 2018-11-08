@@ -168,7 +168,7 @@ public class LogContract {
 		 * <li>{@link #ERROR}</li>
 		 * </ul>
 		 */
-		public final class Level {
+		public final static class Level {
 			/**
 			 * Level used just for debugging purposes. It has the lowest importance level.
 			 */
@@ -196,6 +196,35 @@ public class LogContract {
 
 			private Level() {
 				// empty
+			}
+
+			/**
+			 * The Log {@link Level} and {@link android.util.Log} are not compatible.
+			 * Level has additional {@link #APPLICATION} level, while Log the
+			 * {@link android.util.Log#ASSERT}. Also, the {@link android.util.Log#WARN} has
+			 * the same value as {@link #INFO}. Therefore, a translation needs to be done to
+			 * log a message using {@link android.util.Log} priorities.
+			 *
+			 * @param priority the {@link android.util.Log} priority.
+			 * @return the {@link Level} matching given priority.
+			 */
+			public static int fromPriority(final int priority) {
+				switch (priority) {
+					case android.util.Log.VERBOSE:
+						return LogContract.Log.Level.VERBOSE;
+					case android.util.Log.DEBUG:
+						return LogContract.Log.Level.DEBUG;
+					case android.util.Log.INFO:
+						return LogContract.Log.Level.INFO;
+					case android.util.Log.WARN:
+						return LogContract.Log.Level.WARNING;
+					case android.util.Log.ERROR:
+					case android.util.Log.ASSERT:
+						return LogContract.Log.Level.ERROR;
+					default:
+						// In case the Level was used, for example APPLICATION.
+						return priority;
+				}
 			}
 		}
 	}
