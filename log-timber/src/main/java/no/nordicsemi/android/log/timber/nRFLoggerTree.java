@@ -34,7 +34,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import no.nordicsemi.android.log.ILogSession;
 import no.nordicsemi.android.log.LogContract;
@@ -100,25 +99,7 @@ public class nRFLoggerTree extends Timber.Tree {
 		if (session == null)
 			return;
 
-		int level = priority;
-		switch (priority) {
-			case Log.VERBOSE:
-				level = LogContract.Log.Level.VERBOSE;
-				break;
-			case Log.DEBUG:
-				level = LogContract.Log.Level.DEBUG;
-				break;
-			case Log.INFO:
-				level = LogContract.Log.Level.INFO;
-				break;
-			case Log.WARN:
-				level = LogContract.Log.Level.WARNING;
-				break;
-			case Log.ERROR:
-			case Log.ASSERT:
-				level = LogContract.Log.Level.ERROR;
-				break;
-		}
+		int level = LogContract.Log.Level.fromPriority(priority);
 
 		// Ignore t. Stack trace is already added to the message by prepareLog
 
