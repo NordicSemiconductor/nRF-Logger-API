@@ -28,4 +28,8 @@
   ~ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   -->
 
-<manifest package="no.nordicsemi.android.log"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="no.nordicsemi.android.log">
+
+	<uses-permission android:name="no.nordicsemi.android.LOG"/>
+</manifest>
