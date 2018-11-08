@@ -11,13 +11,13 @@ nRF Logger is available for Android 4.1.* and newer.
 The nRF Logger API library is available as *jar* or from jcenter and Maven Central repositories. For Android Studio, add the following dependency to your component's *gradle.build* file:
 
 ```Groovy
-implementation 'no.nordicsemi.android:log:2.1.3'
+implementation 'no.nordicsemi.android:log:2.2.0'
 ```
 
 For easy integration with [Timber (4.7.1)](https://github.com/JakeWharton/timber), use this instead:
 
 ```Groovy
-implementation 'no.nordicsemi.android:log-timber:2.1.3'
+implementation 'no.nordicsemi.android:log-timber:2.2.0'
 ```
 
 If you use proguard, the following line will be automatically added to your proguard rules:
