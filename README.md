@@ -45,14 +45,14 @@ After importing log-timber dependency, plant the [nRFLoggerTree](https://github.
 
 ### Example
 The example project may be found in samples folder. It contains a simple application that shows how to create a log session:
-
-    mLogSession = Logger.newSession(getActivity(), key, name);
-	
+```java
+logSession = Logger.newSession(context, key, name);
+```	
 and add entries:
-
-    Logger.log(mLogSession, Level.INFO, text);
-    Logger.e(mLogSession, R.string.error, someArg);
-   
+```java
+Logger.log(logSession, Level.INFO, text);
+Logger.e(logSession, R.string.error, someArg);
+```   
 If nRF Logger application is not installed on the device those methods does nothing.
 
 ### Basic information
@@ -60,13 +60,13 @@ If nRF Logger application is not installed on the device those methods does noth
 ![Logger Image](.assets/logger2.png) ![Logger Image](.assets/logger1.png)
 
 (1) When you create your first log session from your application its name will be added to nRF Logger drop-down menu.
-
-    mLogSession = Logger.newSession(getActivity(), key, name);
-
+```java
+logSession = Logger.newSession(context, key, name);
+```
 (2) You may create multiple folders for different components of your application by creating a session with a profile name. It will be concatenated with the application name and visible as different entry in the drop-down menu.
-
-    mLogSession = Logger.newSession(getActivity(), "Profile Name", key, name);
-
+```java
+logSession = Logger.newSession(context, "Profile Name", key, name);
+```
 (3) The "name" parameter is shown as a title. If name is null, "No name" will be shown.
 
 (4) The "key" parameter is used to group log sessions from the same day together. The "key" parameter may not be null.
@@ -74,13 +74,13 @@ If nRF Logger application is not installed on the device those methods does noth
 (5) Log sessions from the same day with the same "key" value are grouped as shown on the picture.
 
 (6) nRF Logger API allows you also to add a comment to a log session.
-
-    Logger.setSessionDescription(mLogSession, "This is a comment");
-
+```java
+Logger.setSessionDescription(logSession, "This is a comment");
+```
 (7) You may also mark a session with one of 6 symbols.
-
-    Logger.setSessionMark(mLogSession, Logger.MARK_FLAG_RED);
-    
+```java
+Logger.setSessionMark(logSession, Logger.MARK_FLAG_RED);
+```  
 ## Version 2.0
 
 ### Local Log Content Provider
@@ -88,12 +88,12 @@ If nRF Logger application is not installed on the device those methods does noth
 The version 2.0 introduced the **LocalLogContentProvider** class which may be used to keep logs even if the nRF Logger application is not installed. Local log database is a limited version of the one in nRF Logger. It does not support multiple applications as the new provider is designed to work only in one application. Also marking session with a flag/star or adding a description is not supported.
 
 To use the LocalLogContentProvider you must extend extend this class in you project and add its definition to the *AndroidManifest.xml* file:
-
-    <provider
-        android:name="com.example.log.provider.MyLogContentProvider"
-        android:authorities="com.example.log"
-        android:exported="true" />
-        
+```xml
+<provider
+    android:name="com.example.log.provider.MyLogContentProvider"
+    android:authorities="com.example.log"
+    android:exported="true" />
+```        
 If you want to use the local logger in threads that are owned by other applications, f.e. by Bluetooth scanner callbacks, you must set the **exported** attribute to *true*. Otherwise the Bluetooth application will not have the permission to add log events. You may also use **Handler** object to log in UI thread of your application.
 
 ### ILogSession
