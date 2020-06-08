@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright (c) 2020 Nordic Semiconductor. All Rights Reserved.
+
+  The information contained herein is property of Nordic Semiconductor ASA.
+  Terms and conditions of usage are described in detail in NORDIC SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT.
+  Licensees are granted free, non-transferable use of the information. NO WARRANTY of ANY KIND is provided.
+  This heading must NOT be removed from the file.
+-->
+<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:ellipsize="end"
+	android:maxLines="1"
+	android:padding="16dp"
+	android:textAppearance="?attr/textAppearanceSubtitle1"
+	tools:text="DEBUG" />

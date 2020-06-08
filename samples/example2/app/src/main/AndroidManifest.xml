@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	package="no.nordicsemi.android.log.example" >
+    
+    <uses-permission android:name="no.nordicsemi.android.LOG" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+		android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+		tools:ignore="AllowBackup">
+        <activity
+            android:name="no.nordicsemi.android.log.example.MainActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <provider
+		    android:name="no.nordicsemi.android.log.example.localprovider.MyLogContentProvider"
+		    android:authorities="no.nordicsemi.android.log.example"
+		    android:exported="false" />
+    </application>
+
+</manifest>

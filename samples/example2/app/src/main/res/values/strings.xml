@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">nRF Logger Example</string>
+    
+    <string name="action_create">Create log session</string>
+    <string name="action_append">Add</string>
+    <string name="action_open">Show log entries</string>
+    <string name="action_open_sessions">Show all log sessions</string>
+    <string name="action_download">Get nRF Logger</string>
+    
+    <string name="action_append_hint">Some text</string>
+    
+    <string name="log" formatted="false">%1$tR:%1$tS.%1$tL</string>
+    <string-array name="log_levels">
+        <item>DEBUG</item>
+        <item>VERBOSE</item>
+        <item>INFO</item>
+        <item>APPLICATION</item>
+        <item>WARNING</item>
+        <item>ERROR</item>
+    </string-array>
+    
+    <string name="error_no_nrf_logger">nRF Logger is not installed. Using local log.</string>
+    
+    <string name="dialog_title">Create session</string>
+    <string name="dialog_message">Please, provide a key and a name for the new log session:</string>
+    <string name="dialog_key">Key</string>
+    <string name="dialog_name">Name</string>
+    <string name="dialog_error">The field may not be empty.</string>
+
+</resources>
