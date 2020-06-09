@@ -1,1 +1,1 @@
-include ':log', ':log-timber'
+include ':log', ':log-timber', ":sample"
