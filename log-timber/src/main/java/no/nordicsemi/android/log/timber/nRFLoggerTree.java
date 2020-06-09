@@ -32,12 +32,13 @@ package no.nordicsemi.android.log.timber;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import no.nordicsemi.android.log.ILogSession;
 import no.nordicsemi.android.log.LogContract;
 import no.nordicsemi.android.log.Logger;
+import no.nordicsemi.android.log.timber.annotation.LogPriority;
 import timber.log.Timber;
 
 @SuppressWarnings("unused")
@@ -68,14 +69,14 @@ public class nRFLoggerTree extends Timber.Tree {
 
 	// Public API
 
-	public void newSession(final @NonNull String key, final @NonNull String name) {
+	public void newSession(final @NonNull String key, final @Nullable String name) {
 		if (session != null) {
 			session = Logger.newSession(session.getContext(), null, key, name);
 		}
 	}
 
 	public void newSession(final @Nullable String profile,
-						   final @NonNull String key, final @NonNull String name) {
+						   final @NonNull String key, final @Nullable String name) {
 		if (session != null) {
 			session = Logger.newSession(session.getContext(), profile, key, name);
 		}
@@ -89,17 +90,17 @@ public class nRFLoggerTree extends Timber.Tree {
 	// Tree API
 
 	@Override
-	protected boolean isLoggable(@Nullable final String tag, final int priority) {
+	protected boolean isLoggable(@Nullable final String tag, @LogPriority final int priority) {
 		return session != null;
 	}
 
 	@Override
-	protected void log(final int priority, @Nullable final String tag,
+	protected void log(@LogPriority final int priority, @Nullable final String tag,
 					   @NonNull final String message, @Nullable final Throwable t) {
 		if (session == null)
 			return;
 
-		int level = LogContract.Log.Level.fromPriority(priority);
+		final int level = LogContract.Log.Level.fromPriority(priority);
 
 		// Ignore t. Stack trace is already added to the message by prepareLog
 

@@ -35,11 +35,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import no.nordicsemi.android.log.annotation.LogLevel;
+import no.nordicsemi.android.log.annotation.LogMark;
 
 /**
  * <p>
@@ -156,10 +161,11 @@ public class Logger {
 	 * @param key     the session key, which is used to group sessions.
 	 * @param name    the human readable session name.
 	 * @return The {@link LogSession} that can be used to append log entries or <code>null</code>
-	 * if MCP is not installed. The <code>null</code> value can be next passed to logging methods.
+	 * if nRF Logger is not installed. The <code>null</code> value can be next passed to logging methods.
 	 */
+	@Nullable
 	public static LogSession newSession(@NonNull final Context context,
-										@NonNull final String key, @NonNull final String name) {
+										@NonNull final String key, @Nullable final String name) {
 		return newSession(context, null, key, name);
 	}
 
@@ -172,11 +178,13 @@ public class Logger {
 	 * @param key     the session key, which is used to group sessions.
 	 * @param name    the human readable session name.
 	 * @return The {@link LogSession} that can be used to append log entries or <code>null</code>
-	 * if MCP is not installed. The <code>null</code> value can be next passed to logging methods.
+	 * if nRF Logger is not installed. The <code>null</code> value can be next passed to logging methods.
 	 */
+	@Nullable
 	public static LogSession newSession(@NonNull final Context context,
 										@Nullable final String profile,
-										@NonNull final String key, @NonNull final String name) {
+										@NonNull final String key,
+										@Nullable final String name) {
 		final ArrayList<ContentProviderOperation> ops = new ArrayList<>();
 		ContentProviderOperation.Builder builder =
 				ContentProviderOperation.newInsert(LogContract.Application.CONTENT_URI);
@@ -276,7 +284,7 @@ public class Logger {
 	 *                This may be <code>null</code>, than it does nothing.
 	 * @param mark    the new mark. {@link #MARK_CLEAR} will clear the mark.
 	 */
-	public static void setSessionMark(@Nullable final LogSession session, final int mark) {
+	public static void setSessionMark(@Nullable final LogSession session, @LogMark final int mark) {
 		if (session == null)
 			return;
 
@@ -380,7 +388,7 @@ public class Logger {
 	 * @param message the message to be logged.
 	 */
 	public static void log(@Nullable final ILogSession session,
-						   final int level, @NonNull final String message) {
+						   @LogLevel final int level, @NonNull final String message) {
 		if (session == null)
 			return;
 
@@ -407,7 +415,7 @@ public class Logger {
 	 * @param message the message to be logged.
 	 */
 	public static ContentValues logEntry(@Nullable final ILogSession session,
-										 final int level, final String message) {
+										 @LogLevel final int level, @NonNull final String message) {
 		if (session == null)
 			return null;
 
@@ -427,7 +435,7 @@ public class Logger {
 	 * @param params       additional (optional) parameters used to fill the message.
 	 */
 	public static void d(@Nullable final ILogSession session,
-						 final int messageResId, final Object... params) {
+						 @StringRes final int messageResId, final Object... params) {
 		log(session, LogContract.Log.Level.DEBUG, messageResId, params);
 	}
 
@@ -440,7 +448,7 @@ public class Logger {
 	 * @param params       additional (optional) parameters used to fill the message.
 	 */
 	public static void v(@Nullable final ILogSession session,
-						 final int messageResId, final Object... params) {
+						 @StringRes final int messageResId, final Object... params) {
 		log(session, LogContract.Log.Level.VERBOSE, messageResId, params);
 	}
 
@@ -453,7 +461,7 @@ public class Logger {
 	 * @param params       additional (optional) parameters used to fill the message.
 	 */
 	public static void i(@Nullable final ILogSession session,
-						 final int messageResId, final Object... params) {
+						 @StringRes final int messageResId, final Object... params) {
 		log(session, LogContract.Log.Level.INFO, messageResId, params);
 	}
 
@@ -466,7 +474,7 @@ public class Logger {
 	 * @param params       additional (optional) parameters used to fill the message.
 	 */
 	public static void a(@Nullable final ILogSession session,
-						 final int messageResId, final Object... params) {
+						 @StringRes final int messageResId, final Object... params) {
 		log(session, LogContract.Log.Level.APPLICATION, messageResId, params);
 	}
 
@@ -479,7 +487,7 @@ public class Logger {
 	 * @param params       additional (optional) parameters used to fill the message.
 	 */
 	public static void w(@Nullable final ILogSession session,
-						 final int messageResId, final Object... params) {
+						 @StringRes final int messageResId, final Object... params) {
 		log(session, LogContract.Log.Level.WARNING, messageResId, params);
 	}
 
@@ -492,7 +500,7 @@ public class Logger {
 	 * @param params       additional (optional) parameters used to fill the message.
 	 */
 	public static void e(@Nullable final ILogSession session,
-						 final int messageResId, final Object... params) {
+						 @StringRes final int messageResId, final Object... params) {
 		log(session, LogContract.Log.Level.ERROR, messageResId, params);
 	}
 
@@ -509,8 +517,8 @@ public class Logger {
 	 * @param params       additional (optional) parameters used to fill the message.
 	 */
 	public static void log(@Nullable final ILogSession session,
-						   final int level,
-						   final int messageResId, final Object... params) {
+						   @LogLevel final int level,
+						   @StringRes final int messageResId, final Object... params) {
 		if (session == null)
 			return;
 
@@ -536,8 +544,8 @@ public class Logger {
 	 * @param params       additional (optional) parameters used to fill the message.
 	 */
 	public static ContentValues logEntry(@Nullable final ILogSession session,
-										 final int level,
-										 final int messageResId, final Object... params) {
+										 @LogLevel final int level,
+										 @StringRes final int messageResId, final Object... params) {
 		if (session == null)
 			return null;
 
