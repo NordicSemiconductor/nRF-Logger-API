@@ -63,7 +63,7 @@ and add entries:
 Logger.log(logSession, Level.INFO, text);
 Logger.e(logSession, R.string.error, someArg);
 ```   
-If nRF Logger application is not installed on the device those methods does nothing.
+If nRF Logger application is not installed on the device those methods do nothing.
 
 ### Basic information
 
