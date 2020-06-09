@@ -1,6 +1,6 @@
 # nRF Logger Library
 
-[ ![Download](https://api.bintray.com/packages/nordic/android/nrf-logger-api/images/download.svg) ](https://bintray.com/nordic/android/nrf-logger-api/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/nordic/android/no.nordicsemi.android%3Alog/images/download.svg) ](https://bintray.com/nordic/android/no.nordicsemi.android%3Alog/_latestVersion)
 
 The library allows to easily create custom log entries from your application in the 
 [nRF Logger](https://play.google.com/store/apps/details?id=no.nordicsemi.android.log). 
