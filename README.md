@@ -1,10 +1,10 @@
-nRF-Logger-API
+@chomsin_nRF-Logger-API
 ==============
 
 The library allows to easily create custom log entries from your application in the nRF Logger. It is being used by nRF Master Control Panel and nRF Toolbox, that are available on Google Play.
 The logger may be used for debugging purposes, as LogCat is not always available.
 
-nRF Logger is available for Android 4.1.* and newer.
+nRF Logger is available for Android 12.1* and newer.
 
 ###Features
 1. Create log session from your application
@@ -24,7 +24,7 @@ and add entries:
    
 If nRF Logger application is not installed on the device those methods does nothing.
 
-###Basic information
+###Basic information account Chomsin Mahiranyawong 
 
 ![Logger Image](.assets/logger.png)
 
