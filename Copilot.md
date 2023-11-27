@@ -1,4 +1,4 @@
-@chomsin_nRF-Logger-API
+nRF-Logger-API
 ==============
 
 The library allows to easily create custom log entries from your application in the nRF Logger. It is being used by nRF Master Control Panel and nRF Toolbox, that are available on Google Play.
@@ -24,7 +24,7 @@ and add entries:
    
 If nRF Logger application is not installed on the device those methods does nothing.
 
-###Basic information account Chomsin Mahiranyawong 
+###Basic information account @Chomsin
 
 ![Logger Image](.assets/logger.png)
 
