@@ -1,0 +1,5 @@
+{
+    "workbench.experimental.cloudChanges.partialMatches.enabled": true,
+    "redhat.telemetry.enabled": true,
+    "typescript.disableAutomaticTypeAcquisition": true
+}
