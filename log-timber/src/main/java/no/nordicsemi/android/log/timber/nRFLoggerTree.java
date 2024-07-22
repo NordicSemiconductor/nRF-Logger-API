@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright (c) 2020, Nordic Semiconductor
  * All rights reserved.
  *
