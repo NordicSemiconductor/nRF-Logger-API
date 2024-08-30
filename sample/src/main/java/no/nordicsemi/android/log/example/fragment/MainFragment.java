@@ -34,7 +34,6 @@ package no.nordicsemi.android.log.example.fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -156,34 +155,32 @@ public class MainFragment extends ListFragment implements LoaderManager.LoaderCa
 		Button openButton = mShowSessionInLoggerButton = rootView.findViewById(R.id.action_open);
 		openButton.setEnabled(sessionOpen);
 		openButton.setOnClickListener(v -> {
-			if (mLogSession != null) {
+            final Intent intent;
+            if (mLogSession != null) {
 				// Open the log session in any app that supports nRF Logger log provider, f.e. in nRF Logger
-				Intent intent = new Intent(Intent.ACTION_VIEW, mLogSession.getSessionUri());
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
-			} else {
+                intent = new Intent(Intent.ACTION_VIEW, mLogSession.getSessionUri());
+            } else {
 				// nRF Logger is not installed, open the Google Play
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=no.nordicsemi.android.log"));
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
-			}
-		});
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=no.nordicsemi.android.log"));
+            }
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
 
 		Button openSessionsButton = mShowAllSessionsInLoggerButton = rootView.findViewById(R.id.action_open_sessions);
 		openSessionsButton.setEnabled(sessionOpen);
 		openSessionsButton.setOnClickListener(v -> {
-			if (mLogSession instanceof LogSession) {
+            final Intent intent;
+            if (mLogSession instanceof LogSession) {
 				// Open the sessions in any app that supports nRF Logger log provider, f.e. in nRF Logger
-				Intent intent = new Intent(Intent.ACTION_VIEW, ((LogSession) mLogSession).getSessionsUri());
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
-			} else {
+                intent = new Intent(Intent.ACTION_VIEW, ((LogSession) mLogSession).getSessionsUri());
+            } else {
 				// nRF Logger is not installed, open the Google Play
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=no.nordicsemi.android.log"));
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
-			}
-		});
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=no.nordicsemi.android.log"));
+            }
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
 
 		return rootView;
 	}
@@ -258,7 +255,7 @@ public class MainFragment extends ListFragment implements LoaderManager.LoaderCa
 
 	@Override
 	public void onLoaderReset(@NonNull final Loader<Cursor> loader) {
-		mLogAdapter.swapCursor(null);
+		mLogAdapter.changeCursor(null);
 	}
 
 	/**

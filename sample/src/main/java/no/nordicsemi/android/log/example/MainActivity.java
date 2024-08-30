@@ -64,13 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
 	private boolean logProviderExists() {
 		// The method below requires API 16
-		final ContentProviderClient unstableClient = getContentResolver()
-				.acquireUnstableContentProviderClient(LogContract.AUTHORITY);
-		if (unstableClient == null)
-			return false;
-
-		unstableClient.release();
-		return true;
+		try (final ContentProviderClient client = getContentResolver()
+				.acquireContentProviderClient(LogContract.AUTHORITY)) {
+            return client != null;
+        }
 	}
 
 }
