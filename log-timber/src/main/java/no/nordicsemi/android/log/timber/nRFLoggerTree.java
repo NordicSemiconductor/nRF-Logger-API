@@ -33,6 +33,7 @@ package no.nordicsemi.android.log.timber;
 
 import android.content.Context;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -46,6 +47,8 @@ import timber.log.Timber;
 public class nRFLoggerTree extends Timber.Tree {
 	@Nullable
 	private ILogSession session;
+
+	private boolean logTags = true;
 
 	// Constructors
 
@@ -88,6 +91,17 @@ public class nRFLoggerTree extends Timber.Tree {
 		return session;
 	}
 
+	/**
+	 * Sets whether the non-null tags should be logged as:
+	 * <p>
+	 * <code>[&lt;tag&gt;] &lt;message&gt;</code>
+	 * </p>
+	 * @param enable true to enable (default), false to disable.
+	 */
+	public void setLoggingTagsEnabled(final boolean enable) {
+		this.logTags = enable;
+	}
+
 	// Tree API
 
 	@Override
@@ -105,7 +119,7 @@ public class nRFLoggerTree extends Timber.Tree {
 
 		// Ignore t. Stack trace is already added to the message by prepareLog
 
-		if (tag == null) {
+		if (!logTags || tag == null || tag.isEmpty()) {
 			Logger.log(session, level, message);
 		} else {
 			Logger.log(session, level, "[" + tag + "] " + message);
