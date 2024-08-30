@@ -31,10 +31,10 @@
 
 package no.nordicsemi.android.log;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 @SuppressWarnings("unused")
@@ -49,9 +49,8 @@ public interface ILogSession {
 	Context getContext();
 
 	/**
-	 * Returns the session {@link Uri}. The Uri may be saved in
-	 * {@link Activity#onSaveInstanceState(android.os.Bundle)} to recreate the session using
-	 * {@link Logger#openSession(Context, Uri)} when orientation change.
+	 * Returns the session {@link Uri}. The Uri may be saved in a saved state
+	 * to recreate the session using {@link Logger#openSession(Context, Uri)} when orientation change.
 	 * Use this Uri also to open the log session in the nRF Logger.
 	 *
 	 * <pre>

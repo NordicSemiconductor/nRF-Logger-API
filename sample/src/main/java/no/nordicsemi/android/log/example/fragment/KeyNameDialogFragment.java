@@ -37,7 +37,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -66,7 +65,7 @@ public class KeyNameDialogFragment extends DialogFragment implements
 				.setNegativeButton(android.R.string.no, null)
 				.setPositiveButton(android.R.string.ok, this);
 
-		final View view = LayoutInflater.from(requireContext())
+		final View view = getLayoutInflater()
 				.inflate(R.layout.fragment_dialog_key_name, null);
 		mKeyView = view.findViewById(R.id.key);
 		mNameView = view.findViewById(R.id.name);
