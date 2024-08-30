@@ -30,8 +30,6 @@
   ~
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="no.nordicsemi.android.log">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 	<uses-permission android:name="no.nordicsemi.android.LOG"/>
 </manifest>

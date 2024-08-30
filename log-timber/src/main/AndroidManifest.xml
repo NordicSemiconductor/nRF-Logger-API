@@ -30,4 +30,4 @@
   ~
   -->
 
-<manifest package="no.nordicsemi.android.log.timber"/>
+<manifest />
