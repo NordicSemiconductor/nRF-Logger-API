@@ -57,7 +57,7 @@
     <string name="dialog_title">Create session</string>
     <string name="dialog_message">Please, provide a key and a name for the new log session:</string>
     <string name="dialog_key">Key</string>
-    <string name="dialog_name">Name</string>
+    <string name="dialog_name">Name (optional)</string>
     <string name="dialog_error">The field may not be empty.</string>
 
 </resources>

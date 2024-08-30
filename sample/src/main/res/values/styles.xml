@@ -35,7 +35,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="@style/Theme.Material3.Light">
         <item name="colorPrimary">@color/nordicBlue</item>
     </style>
 

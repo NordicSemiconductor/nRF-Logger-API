@@ -45,8 +45,9 @@ import android.widget.TextView.OnEditorActionListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class KeyNameDialogFragment extends DialogFragment implements
 		OnEditorActionListener, DialogInterface.OnClickListener {
@@ -60,7 +61,7 @@ public class KeyNameDialogFragment extends DialogFragment implements
 	@NonNull
 	@Override
 	public Dialog onCreateDialog(@Nullable final Bundle savedInstanceState) {
-		final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+		final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
 				.setTitle(R.string.dialog_title)
 				.setNegativeButton(android.R.string.no, null)
 				.setPositiveButton(android.R.string.ok, this);
