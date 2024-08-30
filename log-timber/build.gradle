@@ -1,32 +1,48 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
+    namespace 'no.nordicsemi.android.log.timber'
+    compileSdk 34
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 7
-        versionName VERSION_NAME
+        minSdk 16
+        targetSdk 34
     }
+
     buildTypes {
         release {
             minifyEnabled false
         }
     }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 }
 
 dependencies {
     api project(':log')
-    api 'com.jakewharton.timber:timber:4.7.1'
+    api 'com.jakewharton.timber:timber:5.0.1'
 }
 
-afterEvaluate { project ->
-    android.libraryVariants.all { variant ->
-        tasks.androidJavadocs.doFirst {
-            classpath += configurations.compile
-        }
+// === Maven Central configuration ===
+if (rootProject.file('gradle/publish-module.gradle').exists()) {
+    ext {
+        POM_ARTIFACT_ID = 'log-timber'
+        POM_NAME = 'nRF Logger API Library'
+        POM_PACKAGING = 'aar'
     }
+    apply from: rootProject.file('gradle/publish-module.gradle')
 }
 
-apply from: rootProject.file('gradle/gradle-bintray-push.gradle')
+afterEvaluate {
+    generateMetadataFileForReleasePublication.dependsOn androidSourcesJar
+}

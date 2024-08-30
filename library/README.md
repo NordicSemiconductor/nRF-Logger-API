@@ -1,3 +1,3 @@
-The jar files were created before the project was submitted on jcenter repository.
+The jar files were created before the project was submitted on Maven Central repository.
 
-Please, use jenter to obtain the newer versions.
+Please, use Maven Central to obtain the newer versions.
