@@ -1,6 +1,6 @@
 # nRF Logger Library
 
-[ ![Download](https://api.bintray.com/packages/nordic/android/no.nordicsemi.android%3Alog/images/download.svg) ](https://bintray.com/nordic/android/no.nordicsemi.android%3Alog/_latestVersion)
+[ ![Maven Central Version](https://img.shields.io/maven-central/v/no.nordicsemi.android/log)](https://central.sonatype.com/artifact/no.nordicsemi.android/log)
 
 The library allows to easily create custom log entries from your application in the 
 [nRF Logger](https://play.google.com/store/apps/details?id=no.nordicsemi.android.log). 
@@ -10,17 +10,17 @@ The logger may be used for debugging purposes, as LogCat is not always available
 nRF Logger is available for Android 4.2.* and newer.
 
 ### Usage
-The nRF Logger API library is available on JCenter and Maven Central repositories. 
+The nRF Logger API library is available on Maven Central repositories. 
 For Android Studio, add the following dependency to your component's *gradle.build* file:
 
 ```Groovy
-implementation 'no.nordicsemi.android:log:2.3.0'
+implementation 'no.nordicsemi.android:log:2.4.0'
 ```
 
-For easy integration with [Timber (4.7.1)](https://github.com/JakeWharton/timber), use this instead:
+For easy integration with [Timber (5.0.1)](https://github.com/JakeWharton/timber), use this instead:
 
 ```Groovy
-implementation 'no.nordicsemi.android:log-timber:2.3.0'
+implementation 'no.nordicsemi.android:log-timber:2.4.0'
 ```
 
 If your project is NOT migrated to AndroidX, use version 2.2.0.
@@ -39,7 +39,7 @@ APPLICATION level added in version 2.0 of the library.
 
 ### Timber integration
 After importing log-timber dependency, plant the 
-[nRFLoggerTree](https://github.com/NordicSemiconductor/nRF-Logger-API/blob/master/log-timber/src/main/java/no/nordicsemi/android/log/timber/nRFLoggerTree.java), 
+[nRFLoggerTree](https://github.com/NordicSemiconductor/nRF-Logger-API/blob/main/log-timber/src/main/java/no/nordicsemi/android/log/timber/nRFLoggerTree.java), 
 as described on [Timber](https://github.com/JakeWharton/timber) website.
 
 #### Important
