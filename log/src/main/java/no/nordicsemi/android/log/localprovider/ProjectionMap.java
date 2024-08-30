@@ -45,7 +45,7 @@ import java.util.Map;
 
 	public static class Builder {
 
-		private ProjectionMap mMap = new ProjectionMap();
+		private final ProjectionMap mMap = new ProjectionMap();
 
 		Builder add(@NonNull String column) {
 			mMap.putColumn(column, column);

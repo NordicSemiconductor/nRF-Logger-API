@@ -152,7 +152,7 @@ public abstract class LocalLogContentProvider extends ContentProvider {
 	 */
 	private String mSerializeDbTag;
 
-	protected LocalLogDatabaseHelper getDatabaseHelper(final Context context) {
+	/*package*/LocalLogDatabaseHelper getDatabaseHelper(final Context context) {
 		return LocalLogDatabaseHelper.getInstance(context);
 	}
 
@@ -320,7 +320,7 @@ public abstract class LocalLogContentProvider extends ContentProvider {
 				if (++opCount >= BULK_INSERTS_PER_YIELD_POINT) {
 					opCount = 0;
 					try {
-						yield(transaction);
+						yieldTransaction(transaction);
 					} catch (RuntimeException re) {
 						transaction.markYieldFailed();
 						throw re;
@@ -358,7 +358,7 @@ public abstract class LocalLogContentProvider extends ContentProvider {
 				if (i > 0 && operation.isYieldAllowed()) {
 					opCount = 0;
 					try {
-						if (yield(transaction)) {
+						if (yieldTransaction(transaction)) {
 							ypCount++;
 						}
 					} catch (RuntimeException re) {
@@ -579,14 +579,14 @@ public abstract class LocalLogContentProvider extends ContentProvider {
 				transaction.finish(callerIsBatch);
 			} finally {
 				// No matter what, make sure we clear out the thread-local transaction reference.
-				mTransactionHolder.set(null);
+                mTransactionHolder.remove();
 			}
 		}
 	}
 
-	protected boolean yield(LogTransaction transaction) {
+	private boolean yieldTransaction(LogTransaction transaction) {
 		// Now proceed with the DB yield.
-		SQLiteDatabase db = transaction.getDbForTag(DB_TAG);
+		final SQLiteDatabase db = transaction.getDbForTag(DB_TAG);
 		return db != null && db.yieldIfContendedSafely(SLEEP_AFTER_YIELD_DELAY);
 	}
 
