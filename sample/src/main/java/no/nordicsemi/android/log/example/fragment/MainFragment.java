@@ -218,7 +218,7 @@ public class MainFragment extends ListFragment implements LoaderManager.LoaderCa
 	 * If the nRF Logger application is not installed it will change the "Open in nRF Logger"
 	 * button to "Download nRF Logger".
 	 */
-	private void createLogSession(String key, String name) {
+	private void createLogSession(@NonNull String key, @Nullable String name) {
 		mLogSession = Logger.newSession(requireContext(), key, name);
 
 		// Enable buttons
@@ -230,7 +230,7 @@ public class MainFragment extends ListFragment implements LoaderManager.LoaderCa
 
 		// The session is null if nRF Logger is not installed
 		if (mLogSession == null) {
-			Toast.makeText(getActivity(), R.string.error_no_nrf_logger, Toast.LENGTH_SHORT).show();
+			Toast.makeText(requireContext(), R.string.error_no_nrf_logger, Toast.LENGTH_SHORT).show();
 			mLogSession = LocalLogSession.newSession(requireContext(), MyLogContentProvider.AUTHORITY_URI, key, name);
 
 			// The button will be used to download the nRF Logger
