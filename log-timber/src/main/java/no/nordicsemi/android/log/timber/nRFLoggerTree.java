@@ -50,13 +50,13 @@ public class nRFLoggerTree extends Timber.Tree {
 	// Constructors
 
 	public nRFLoggerTree(final @NonNull Context context,
-						 final @NonNull String key, final @NonNull String name) {
+						 final @NonNull String key, final @Nullable String name) {
 		this.session = Logger.newSession(context, null, key, name);
 	}
 
 	public nRFLoggerTree(final @NonNull Context context,
 						 final @Nullable String profile,
-						 final @NonNull String key, final @NonNull String name) {
+						 final @NonNull String key, final @Nullable String name) {
 		this.session = Logger.newSession(context, profile, key, name);
 	}
 

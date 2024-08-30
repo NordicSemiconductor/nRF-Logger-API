@@ -35,6 +35,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.util.Log;
 
 import no.nordicsemi.android.log.localprovider.LocalLogContentProvider;
@@ -67,7 +69,7 @@ public class LocalLogSession implements ILogSession {
 	 */
 	public static LocalLogSession newSession(@NonNull final Context context,
 											 @NonNull final Uri authority,
-											 @NonNull final String key, @NonNull final String name) {
+											 @NonNull final String key, @Nullable final String name) {
 		final Uri uri = authority.buildUpon()
 				.appendEncodedPath(LogContract.Session.SESSION_CONTENT_DIRECTORY)
 				.appendEncodedPath(LogContract.Session.KEY_CONTENT_DIRECTORY)
