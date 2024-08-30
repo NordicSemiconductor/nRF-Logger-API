@@ -32,6 +32,7 @@
 package no.nordicsemi.android.log.example.fragment;
 
 import no.nordicsemi.android.log.example.R;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -45,12 +46,13 @@ import android.widget.TextView.OnEditorActionListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class KeyNameDialogFragment extends DialogFragment implements
-		OnEditorActionListener, DialogInterface.OnClickListener {
+		OnEditorActionListener, View.OnClickListener {
 	public static final String RESULT = "session";
 	public static final String RESULT_KEY = "session_key";
 	public static final String RESULT_NAME = "session_name";
@@ -64,21 +66,27 @@ public class KeyNameDialogFragment extends DialogFragment implements
 		final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
 				.setTitle(R.string.dialog_title)
 				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.ok, this);
+				.setPositiveButton(android.R.string.ok, null);
 
 		final View view = getLayoutInflater()
 				.inflate(R.layout.fragment_dialog_key_name, null);
 		mKeyView = view.findViewById(R.id.key);
 		mNameView = view.findViewById(R.id.name);
 		builder.setView(view);
-		return builder.create();
+
+		// Setting onClickListener to a button this way allows to
+		// validate the input.
+		final AlertDialog dialog = builder.create();
+		dialog.show();
+		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(this);
+		return dialog;
 	}
 
 	/**
 	 * Called when OK button has been pressed.
 	 */
 	@Override
-	public void onClick(final DialogInterface dialog, final int which) {
+	public void onClick(final View v) {
 		// Validate key and name
 		String key = mKeyView.getText().toString().trim();
 		String name = mNameView.getText().toString().trim();
@@ -89,16 +97,12 @@ public class KeyNameDialogFragment extends DialogFragment implements
 			mKeyView.setError(getString(R.string.dialog_error));
 		}
 
-		if (TextUtils.isEmpty(name)) {
-			valid = false;
-			mNameView.setError(getString(R.string.dialog_error));
-		}
-
 		if (valid) {
 			final Bundle result = new Bundle();
 			result.putString(KeyNameDialogFragment.RESULT_KEY, key);
 			result.putString(KeyNameDialogFragment.RESULT_NAME, name);
 			getParentFragmentManager().setFragmentResult(KeyNameDialogFragment.RESULT, result);
+			dismiss();
 		}
 	}
 
@@ -106,7 +110,7 @@ public class KeyNameDialogFragment extends DialogFragment implements
 	public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
 		if (EditorInfo.IME_ACTION_DONE == actionId) {
 			// Return input text to activity
-			onClick(null, DialogInterface.BUTTON_POSITIVE);
+			onClick(null);
 			return true;
 		}
 		return false;
