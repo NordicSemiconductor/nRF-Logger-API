@@ -43,6 +43,12 @@ import no.nordicsemi.android.log.Logger;
 import no.nordicsemi.android.log.timber.annotation.LogPriority;
 import timber.log.Timber;
 
+/**
+ * A Timber tree that logs messages to nRF Logger app or
+ * {@link no.nordicsemi.android.log.localprovider.LocalLogContentProvider}.
+ * <p>
+ * If neither can be found, the logs will be ignored.
+ */
 @SuppressWarnings("unused")
 public class nRFLoggerTree extends Timber.Tree {
 	@Nullable
@@ -52,33 +58,74 @@ public class nRFLoggerTree extends Timber.Tree {
 
 	// Constructors
 
+	/**
+	 * Creates a new instance of nRFLoggerTree.
+	 *
+	 * @param context The context.
+	 * @param key The key of the session. Sessions with the same key will be grouped together.
+	 * @param name An optional name of the session.
+	 */
 	public nRFLoggerTree(final @NonNull Context context,
 						 final @NonNull String key, final @Nullable String name) {
 		this.session = Logger.newSession(context, null, key, name);
 	}
 
+	/**
+	 * Creates a new instance of nRFLoggerTree.
+	 *
+	 * @param context The context.
+	 * @param profile The profile name, which will be concatenated to the app's name in nRF Logger.
+	 * @param key The key of the session. Sessions with the same key will be grouped together.
+	 * @param name An optional name of the session.
+	 */
 	public nRFLoggerTree(final @NonNull Context context,
 						 final @Nullable String profile,
 						 final @NonNull String key, final @Nullable String name) {
 		this.session = Logger.newSession(context, profile, key, name);
 	}
 
+	/**
+	 * Creates a new instance of nRFLoggerTree.
+	 *
+	 * @param session The log session. If null, the logs will be ignored.
+	 */
 	public nRFLoggerTree(final @Nullable ILogSession session) {
 		this.session = session;
 	}
 
+	/**
+	 * Creates a new instance of nRFLoggerTree.
+	 *
+	 * @param context The context.
+	 * @param uri The URI of the session. The URI must point to the session in nRF Logger or
+	 *            {@link no.nordicsemi.android.log.localprovider.LocalLogContentProvider} session.
+	 *            If null, the logs will be ignored.
+	 */
 	public nRFLoggerTree(final @NonNull Context context, final @Nullable Uri uri) {
 		this.session = Logger.openSession(context, uri);
 	}
 
 	// Public API
 
+	/**
+	 * Reuses the existing tree to log to a new log session.
+	 *
+	 * @param key The key of the session. Sessions with the same key will be grouped together.
+	 * @param name An optional name of the session.
+	 */
 	public void newSession(final @NonNull String key, final @Nullable String name) {
 		if (session != null) {
 			session = Logger.newSession(session.getContext(), null, key, name);
 		}
 	}
 
+	/**
+	 * Reuses the existing tree to log to a new log session.
+	 *
+	 * @param profile The profile name, which will be concatenated to the app's name in nRF Logger.
+	 * @param key The key of the session. Sessions with the same key will be grouped together.
+	 * @param name An optional name of the session.
+	 */
 	public void newSession(final @Nullable String profile,
 						   final @NonNull String key, final @Nullable String name) {
 		if (session != null) {
@@ -86,6 +133,12 @@ public class nRFLoggerTree extends Timber.Tree {
 		}
 	}
 
+	/**
+	 * Returns the current log session.
+	 * <p>
+	 * The session may be used to get the {@link ILogSession#getSessionUri()}.
+	 * @return The log session.
+	 */
 	@Nullable
 	public ILogSession getSession() {
 		return session;
